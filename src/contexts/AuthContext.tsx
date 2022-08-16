@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
-import { AuthContextProps, AuthProviderProps, User } from '~/models';
+import { AuthContextProps } from '~/models/AuthContext.model';
+import { HaveChildrenProps } from '~/models/HaveChildren.model';
+import { User } from '~/models/User.model';
 import { api } from '~/services/index.service';
 
 const AuthContext = createContext({} as AuthContextProps);
 
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
   const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [user, setUser] = useState<User>(JSON.parse(localStorage.getItem('user') || '{}'));
