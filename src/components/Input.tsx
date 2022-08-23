@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { InputModel } from '~/models/Input.model';
 
-type InputModel = JSX.IntrinsicElements['input'];
+const Input: React.FC<InputModel> = ({ variant, className, children, ...rest }) => {
+  const variantClasses = useMemo(() => {
+    if (variant === 'enter') {
+      return 'rounded border bg-gray-200 focus:bg-gray-50 text-sm focus:border-gray-500';
+    }
+    if (variant === 'header') {
+      return 'border-b';
+    }
+  }, [variant]);
 
-const Input: React.FC<InputModel> = ({ className, children, ...rest }) => {
   return (
     <input
       {...rest}
       autoComplete='on'
-      className={`${className} outline-none rounded border bg-gray-200 focus:bg-gray-50 text-sm focus:border-gray-500 py-2 px-4 transition`}
+      className={`outline-none py-2 px-4 transition ${variantClasses} ${className}`}
     >
       {children}
     </input>

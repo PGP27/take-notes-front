@@ -26,8 +26,13 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
       .finally(() => setLoadingLogin(false));
   };
 
+  const logout = async () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
-    <AuthContext.Provider value={{ loadingLogin, token, login, user }}>
+    <AuthContext.Provider value={{ loadingLogin, token, login, logout, user }}>
       {children}
     </AuthContext.Provider>
   );

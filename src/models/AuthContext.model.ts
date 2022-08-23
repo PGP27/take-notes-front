@@ -5,5 +5,6 @@ export interface AuthContextProps {
   loadingLogin: boolean;
   token: string;
   login({ username, password }: LoginModel): Promise<void>;
+  logout(): void;
   user: User;
 }

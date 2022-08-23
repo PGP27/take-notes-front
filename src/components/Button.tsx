@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { ButtonModel } from '~/models/Button.model';
 
-type ButtonModel = JSX.IntrinsicElements['button'];
+const Button: React.FC<ButtonModel> = ({ variant, className, children, ...rest }) => {
+  const variantClasses = useMemo(() => {
+    if (variant === 'enter') {
+      return 'bg-green-600';
+    }
+    if (variant === 'header') {
+      return 'flex items-center gap-2 p-4 text-black text-xs rounded-none hover:bg-zinc-200';
+    }
+  }, [variant]);
 
-const Button: React.FC<ButtonModel> = ({ className, children, ...rest }) => {
   return (
     <button
       {...rest}
-      className={`${className} rounded py-2 bg-green-600 text-white transition hover:opacity-90 hover:shadow`}
+      className={`w-full rounded py-2 transition hover:opacity-90 hover:shadow ${variantClasses} ${className}`}
     >
       {children}
     </button>

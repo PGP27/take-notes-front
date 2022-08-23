@@ -32,17 +32,20 @@ const Login = () => {
         <Input
           type='text'
           placeholder='Usuário'
+          variant='enter'
           onChange={({ target: { value } }) => (loginRef.current.username = value)}
         />
         <Label>Senha</Label>
         <Input
           type='password'
           placeholder='Senha'
+          variant='enter'
           onChange={({ target: { value } }) => (loginRef.current.password = value)}
         />
         <Button
           className='mt-12'
           type='button'
+          variant='enter'
           onClick={() =>
             login({ username: loginRef.current.username, password: loginRef.current.password })
           }
