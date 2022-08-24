@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className='flex'>
       <Header />
-      <MainContent />
+      <MainContent type='note' />
     </div>
   );
 };

@@ -1,8 +1,9 @@
+import React from 'react';
 import Button from './Button';
 import { Gear, Plus, SignOut } from 'phosphor-react';
 import { useAuth } from '~/contexts/AuthContext';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { logout, user } = useAuth();
 
   return (
