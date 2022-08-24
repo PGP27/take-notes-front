@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className='flex'>
       <Header />
-      <MainContent type='note' />
+      <MainContent type='checklist' />
     </div>
   );
 };
