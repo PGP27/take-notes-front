@@ -2,18 +2,20 @@ import React from 'react';
 import Button from './Button';
 import { Gear, Plus, SignOut } from 'phosphor-react';
 import { useAuth } from '~/contexts/AuthContext';
+import { useApp } from '~/contexts/AppContext';
 
 const Header: React.FC = () => {
   const { logout, user } = useAuth();
+  const { setMainContent } = useApp();
 
   return (
     <header className='h-screen w-48 flex flex-col justify-between bg-zinc-100 border-r shadow-sm'>
       <div className='w-full'>
         <p className='m-4'>{user.name}</p>
-        <Button variant='header'>
+        <Button variant='header' onClick={() => setMainContent({ type: 'note' })}>
           <Plus /> Adicionar nota
         </Button>
-        <Button variant='header'>
+        <Button variant='header' onClick={() => setMainContent({ type: 'checklist' })}>
           <Plus /> Adicionar checklist
         </Button>
         <Button variant='header'>

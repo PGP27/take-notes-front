@@ -1,3 +1,3 @@
 export interface MainContentProps {
-  type?: 'note' | 'checklist';
+  type?: 'note' | 'checklist' | null;
 }
