@@ -6,7 +6,7 @@ import { useApp } from '~/contexts/AppContext';
 
 const Header: React.FC = () => {
   const { logout, user } = useAuth();
-  const { setMainContent } = useApp();
+  const { setMainContent, userNotes } = useApp();
 
   return (
     <header className='h-screen w-48 flex flex-col justify-between bg-zinc-100 border-r shadow-sm'>
@@ -15,6 +15,11 @@ const Header: React.FC = () => {
         <Button variant='header' onClick={() => setMainContent({ type: 'note' })}>
           <Plus /> Adicionar nota
         </Button>
+        {userNotes.map((note) => (
+          <Button key={note.id} variant='header'>
+            {note.title}
+          </Button>
+        ))}
         <Button variant='header' onClick={() => setMainContent({ type: 'checklist' })}>
           <Plus /> Adicionar checklist
         </Button>
