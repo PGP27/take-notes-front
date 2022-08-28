@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllUserNotes();
-  }, [getAllUserNotes]);
+  }, []);
 
   return (
     <div className='flex'>
