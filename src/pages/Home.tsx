@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Header from '~/components/Header';
 import MainContent from '~/components/MainContent';
 import { useApp } from '~/contexts/AppContext';
+import Modal from '~/components/Modal';
 
 const Home = () => {
   const { mainContent, getAllUserNotes } = useApp();
@@ -14,6 +15,7 @@ const Home = () => {
     <div className='flex'>
       <Header />
       <MainContent type={mainContent.type} />
+      <Modal></Modal>
     </div>
   );
 };

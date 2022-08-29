@@ -6,7 +6,7 @@ import { useApp } from '~/contexts/AppContext';
 
 const Header: React.FC = () => {
   const { logout, user } = useAuth();
-  const { setMainContent, userNotes } = useApp();
+  const { setMainContent, userNotes, setOpenModal } = useApp();
 
   return (
     <header className='h-screen w-48 flex flex-col justify-between bg-zinc-100 border-r shadow-sm'>
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         <Button variant='header' onClick={() => setMainContent({ type: 'checklist' })}>
           <Plus /> Adicionar checklist
         </Button>
-        <Button variant='header'>
+        <Button variant='header' onClick={() => setOpenModal(true)}>
           <Gear /> Configurações
         </Button>
       </div>

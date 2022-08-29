@@ -11,6 +11,7 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   const { token } = useAuth();
 
   const [loadingData, setLoadingData] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [mainContent, setMainContent] = useState<MainContentProps>({ type: null });
   const [userNotes, setUserNotes] = useState([]);
 
@@ -30,7 +31,15 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   };
   return (
     <AppContext.Provider
-      value={{ mainContent, setMainContent, loadingData, userNotes, getAllUserNotes }}
+      value={{
+        mainContent,
+        setMainContent,
+        openModal,
+        setOpenModal,
+        loadingData,
+        userNotes,
+        getAllUserNotes,
+      }}
     >
       {children}
     </AppContext.Provider>
