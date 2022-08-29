@@ -21,7 +21,7 @@ const Item: React.FC = () => {
         variant='item'
         maxLength={50}
       />
-      <Button className='w-fit rounded-full p-2 ml-2 hover:bg-zinc-100 hover:text-red-600'>
+      <Button variant='close' className='ml-2'>
         <Trash />
       </Button>
     </div>

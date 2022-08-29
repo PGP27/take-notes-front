@@ -5,7 +5,11 @@ module.exports = {
     fontFamily: {
       poppins: ['Poppins', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        'modal-overlay': 'rgba(0, 0, 0, 0.25)',
+      },
+    },
   },
   plugins: [],
 };

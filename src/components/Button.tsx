@@ -9,6 +9,9 @@ const Button: React.FC<ButtonModel> = ({ variant, className, children, ...rest }
     if (variant === 'header') {
       return 'flex items-center gap-2 p-4 text-black text-xs rounded-none hover:bg-zinc-200';
     }
+    if (variant === 'close') {
+      return 'w-fit rounded-full p-2 hover:bg-zinc-100 hover:text-red-600';
+    }
   }, [variant]);
 
   return (

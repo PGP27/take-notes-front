@@ -3,6 +3,8 @@ import Header from '~/components/Header';
 import MainContent from '~/components/MainContent';
 import { useApp } from '~/contexts/AppContext';
 import Modal from '~/components/Modal';
+import Label from '~/components/Label';
+import Input from '~/components/Input';
 
 const Home = () => {
   const { mainContent, getAllUserNotes } = useApp();
@@ -15,7 +17,26 @@ const Home = () => {
     <div className='flex'>
       <Header />
       <MainContent type={mainContent.type} />
-      <Modal></Modal>
+      <Modal>
+        <div className='flex gap-8'>
+          <form className='flex flex-col items-start'>
+            <h3 className='mb-4'>Editar Perfil</h3>
+            <Label>Nome:</Label>
+            <Input variant='enter' type='text' />
+            <Label>Email:</Label>
+            <Input variant='enter' type='email' />
+            <Label>Usuário:</Label>
+            <Input variant='enter' type='text' />
+          </form>
+          <form className='flex flex-col items-start'>
+            <h3 className='mb-4'>Alterar Senha</h3>
+            <Label>Senha atual:</Label>
+            <Input variant='enter' type='password' />
+            <Label>Nova senha:</Label>
+            <Input variant='enter' type='password' />
+          </form>
+        </div>
+      </Modal>
     </div>
   );
 };
