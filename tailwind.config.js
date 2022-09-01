@@ -9,6 +9,20 @@ module.exports = {
       colors: {
         'modal-overlay': 'rgba(0, 0, 0, 0.25)',
       },
+      keyframes: {
+        decrease: {
+          '0%': { width: '100%' },
+          '100%': { width: '0%' },
+        },
+        down: {
+          from: { transform: 'translateY(0)', opacity: 0 },
+          to: { transform: 'translateY(1rem)', opacity: 1 },
+        },
+      },
+      animation: {
+        decrease: 'decrease 5s linear',
+        down: 'down 0.5s 1 ease',
+      },
     },
   },
   plugins: [],

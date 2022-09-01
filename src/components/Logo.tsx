@@ -2,9 +2,9 @@ import React from 'react';
 import { LogoModel } from '~/models/Logo.model';
 import { NotePencil } from 'phosphor-react';
 
-const Logo: React.FC<LogoModel> = ({ sm }) => {
+const Logo: React.FC<LogoModel> = ({ sm, className }) => {
   return (
-    <div className='flex items-end bg-white p-4'>
+    <div className={`w-fit flex items-end bg-white ${className}`}>
       <div>
         <p
           className={`${

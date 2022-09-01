@@ -8,6 +8,7 @@ import { api } from '~/services/index.service';
 const AuthContext = createContext({} as AuthContextProps);
 
 const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
+  const [showToast, setShowToast] = useState<string>('');
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
   const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [user, setUser] = useState<User>(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -22,7 +23,7 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data.user));
       })
-      .catch((err) => console.log(err))
+      .catch(() => setShowToast('Usuário ou senha incorretos!'))
       .finally(() => setLoadingLogin(false));
   };
 
@@ -32,7 +33,9 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loadingLogin, token, login, logout, user }}>
+    <AuthContext.Provider
+      value={{ loadingLogin, showToast, setShowToast, token, login, logout, user }}
+    >
       {children}
     </AuthContext.Provider>
   );

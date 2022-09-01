@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import BaseAuthForm from '~/components/BaseAuthForm';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
@@ -9,7 +10,7 @@ const Register = () => {
   const registerRef = useRef<RegisterModel>({} as RegisterModel);
 
   return (
-    <BaseAuthForm title='Cadastro de usuário'>
+    <BaseAuthForm title='Criar sua conta'>
       <Label>Nome</Label>
       <Input
         type='text'
@@ -38,9 +39,16 @@ const Register = () => {
         variant='form'
         onChange={({ target: { value } }) => (registerRef.current.password = value)}
       />
-      <Button className='mt-12' type='button' variant='enter'>
-        Cadastrar
-      </Button>
+      <div className='flex justify-between mt-8'>
+        <Link to='/'>
+          <Button className='w-28' type='button' variant='secondary'>
+            Fazer login
+          </Button>
+        </Link>
+        <Button className='w-28' type='button' variant='primary'>
+          Cadastrar
+        </Button>
+      </div>
     </BaseAuthForm>
   );
 };
