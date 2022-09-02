@@ -13,7 +13,7 @@ const Login = () => {
   const loginRef = useRef<LoginModel>({} as LoginModel);
 
   return (
-    <BaseAuthForm title='Login'>
+    <BaseAuthForm title='Login' description='Entre com seu usuário e senha'>
       <Label>Usuário</Label>
       <Input
         type='text'

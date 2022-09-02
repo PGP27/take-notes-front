@@ -10,7 +10,7 @@ const Register = () => {
   const registerRef = useRef<RegisterModel>({} as RegisterModel);
 
   return (
-    <BaseAuthForm title='Criar sua conta'>
+    <BaseAuthForm title='Criar sua conta' description='Insira seus dados para criar uma conta'>
       <Label>Nome</Label>
       <Input
         type='text'

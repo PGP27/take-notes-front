@@ -10,12 +10,12 @@ const Router = () => {
   return token ? (
     <AppProvider>
       <AppRoutes />
-      {showToast && <Toast />}
+      {showToast.message && <Toast />}
     </AppProvider>
   ) : (
     <>
       <AuthRoutes />
-      {showToast && <Toast />}
+      {showToast.message && <Toast />}
     </>
   );
 };
