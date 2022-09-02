@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { AuthContextProps } from '~/models/AuthContext.model';
+import { CreateAccountModel } from '~/models/CreateAccount.model';
 import { HaveChildrenProps } from '~/models/HaveChildren.model';
 import { LoginModel } from '~/models/Login.model';
 import { ToastModel } from '~/models/Toast.model';
@@ -10,12 +11,16 @@ const AuthContext = createContext({} as AuthContextProps);
 
 const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   const [showToast, setShowToast] = useState<ToastModel>({ message: '' });
-  const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
+  const [authLoading, setAuthLoading] = useState<boolean>(false);
   const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [user, setUser] = useState<User>(JSON.parse(localStorage.getItem('user') || '{}'));
 
+  const openToast = ({ variant, message }: ToastModel) => setShowToast({ variant, message });
+
+  const closeToast = () => setShowToast({ message: '' });
+
   const login = async ({ username, password }: LoginModel) => {
-    setLoadingLogin(true);
+    setAuthLoading(true);
     await api
       .post('/auth/login', { username, password })
       .then((res) => {
@@ -23,10 +28,10 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         setToken(res.data.token);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data.user));
-        setShowToast({ message: '' });
+        closeToast();
       })
-      .catch(() => setShowToast({ variant: 'error', message: 'Usuário ou senha incorretos!' }))
-      .finally(() => setLoadingLogin(false));
+      .catch(() => openToast({ variant: 'error', message: 'Usuário ou senha incorretos!' }))
+      .finally(() => setAuthLoading(false));
   };
 
   const logout = async () => {
@@ -34,9 +39,28 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
     window.location.reload();
   };
 
+  const createAccount = async ({ name, email, username, password }: CreateAccountModel) => {
+    setAuthLoading(true);
+    await api
+      .post('/user', { name, email, username, password })
+      .then(() => openToast({ variant: 'success', message: 'Conta criada com sucesso!' }))
+      .catch((err) => openToast({ variant: 'warning', message: err.response.data.message }))
+      .finally(() => setAuthLoading(false));
+  };
+
   return (
     <AuthContext.Provider
-      value={{ loadingLogin, showToast, setShowToast, token, login, logout, user }}
+      value={{
+        authLoading,
+        showToast,
+        openToast,
+        closeToast,
+        token,
+        login,
+        logout,
+        user,
+        createAccount,
+      }}
     >
       {children}
     </AuthContext.Provider>

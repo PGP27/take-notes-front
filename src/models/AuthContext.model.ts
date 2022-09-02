@@ -1,14 +1,16 @@
-import { Dispatch, SetStateAction } from 'react';
+import { CreateAccountModel } from './CreateAccount.model';
 import { LoginModel } from './Login.model';
 import { ToastModel } from './Toast.model';
 import { User } from './User.model';
 
 export interface AuthContextProps {
-  loadingLogin: boolean;
+  authLoading: boolean;
   showToast: ToastModel;
-  setShowToast: Dispatch<SetStateAction<ToastModel>>;
+  openToast({ variant, message }: ToastModel): void;
+  closeToast(): void;
   token: string;
   login({ username, password }: LoginModel): Promise<void>;
   logout(): void;
   user: User;
+  createAccount({ name, email, username, password }: CreateAccountModel): void;
 }

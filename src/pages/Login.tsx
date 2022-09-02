@@ -8,7 +8,7 @@ import { useAuth } from '~/contexts/AuthContext';
 import { LoginModel } from '~/models/Login.model';
 
 const Login = () => {
-  const { login, loadingLogin } = useAuth();
+  const { login, authLoading, closeToast } = useAuth();
 
   const loginRef = useRef<LoginModel>({} as LoginModel);
 
@@ -28,14 +28,20 @@ const Login = () => {
         variant='form'
         onChange={({ target: { value } }) => (loginRef.current.password = value)}
       />
-      <Link className='w-fit mt-4' to='forgot-password'>
+      <Link className='w-fit mt-4' to='forgot-password' onClick={closeToast}>
         <p className='w-fit text-sm font-medium text-sky-700 hover:text-sky-800'>
           Esqueceu sua senha?
         </p>
       </Link>
       <div className='flex justify-between mt-8'>
         <Link to='register'>
-          <Button className='w-28' type='button' variant='secondary' disabled={loadingLogin}>
+          <Button
+            className='w-28'
+            type='button'
+            variant='secondary'
+            disabled={authLoading}
+            onClick={closeToast}
+          >
             Criar conta
           </Button>
         </Link>
@@ -46,7 +52,7 @@ const Login = () => {
           onClick={() =>
             login({ username: loginRef.current.username, password: loginRef.current.password })
           }
-          disabled={loadingLogin}
+          disabled={authLoading}
         >
           Entrar
         </Button>

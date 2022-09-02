@@ -4,9 +4,11 @@ import BaseAuthForm from '~/components/BaseAuthForm';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import Label from '~/components/Label';
+import { useAuth } from '~/contexts/AuthContext';
 import { RegisterModel } from '~/models/Register.model';
 
 const Register = () => {
+  const { createAccount, closeToast } = useAuth();
   const registerRef = useRef<RegisterModel>({} as RegisterModel);
 
   return (
@@ -41,11 +43,19 @@ const Register = () => {
       />
       <div className='flex justify-between mt-8'>
         <Link to='/'>
-          <Button className='w-28' type='button' variant='secondary'>
+          <Button className='w-28' type='button' variant='secondary' onClick={closeToast}>
             Fazer login
           </Button>
         </Link>
-        <Button className='w-28' type='button' variant='primary'>
+        <Button
+          className='w-28'
+          type='button'
+          variant='primary'
+          onClick={() => {
+            const { name, email, username, password } = registerRef.current;
+            createAccount({ name, email, username, password });
+          }}
+        >
           Cadastrar
         </Button>
       </div>

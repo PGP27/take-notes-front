@@ -17,7 +17,7 @@ const Header: React.FC = () => {
         </Button>
         {userNotes.map((note) => (
           <Button
-            key={note.id}
+            key={note._id}
             variant='header'
             onClick={() => setMainContent({ type: 'note', noteId: note.id })}
           >

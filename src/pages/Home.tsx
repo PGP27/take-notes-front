@@ -22,18 +22,18 @@ const Home = () => {
           <form className='flex flex-col items-start'>
             <h3 className='mb-4'>Editar Perfil</h3>
             <Label>Nome:</Label>
-            <Input variant='enter' type='text' />
+            <Input variant='form' type='text' />
             <Label>Email:</Label>
-            <Input variant='enter' type='email' />
+            <Input variant='form' type='email' />
             <Label>Usuário:</Label>
-            <Input variant='enter' type='text' />
+            <Input variant='form' type='text' />
           </form>
           <form className='flex flex-col items-start'>
             <h3 className='mb-4'>Alterar Senha</h3>
             <Label>Senha atual:</Label>
-            <Input variant='enter' type='password' />
+            <Input variant='form' type='password' />
             <Label>Nova senha:</Label>
-            <Input variant='enter' type='password' />
+            <Input variant='form' type='password' />
           </form>
         </div>
       </Modal>
