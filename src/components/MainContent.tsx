@@ -7,8 +7,6 @@ import { useApp } from '~/contexts/AppContext';
 const MainContent: React.FC<MainContentProps> = ({ type, id }) => {
   const { getDocumentById, document } = useApp();
 
-  console.log(document);
-
   useEffect(() => {
     getDocumentById({ type, id });
   }, [type, id]);

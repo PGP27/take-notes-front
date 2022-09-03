@@ -11,6 +11,7 @@ export interface AppContextProps {
   changeShowModal(): void;
   getAllDocuments(): void;
   getDocumentById({ type, id }: MainContentProps): void;
+  createNote({ type }: MainContentProps): void;
   notes: NoteModel[];
   lists: ListModel[];
   document: DocumentModel | undefined;

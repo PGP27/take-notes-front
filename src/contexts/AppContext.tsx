@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { AppContextProps } from '~/models/AppContext.model';
+import { DocumentModel } from '~/models/Document.model';
 import { HaveChildrenProps } from '~/models/HaveChildren.model';
 import { ListModel } from '~/models/List.model';
 import { MainContentProps } from '~/models/MainContent.model';
@@ -10,14 +11,14 @@ import { useAuth } from './AuthContext';
 const AppContext = createContext({} as AppContextProps);
 
 const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
-  const { token, openToast } = useAuth();
+  const { user, token, openToast } = useAuth();
 
   const [loadingData, setLoadingData] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [mainContent, setMainContent] = useState<MainContentProps>({ type: null });
   const [notes, setNotes] = useState<NoteModel[]>([]);
   const [lists, setLists] = useState<ListModel[]>([]);
-  const [document, setDocument] = useState<NoteModel | ListModel>();
+  const [document, setDocument] = useState<DocumentModel>();
 
   const changeShowModal = () => setShowModal((old) => !old);
 
@@ -71,6 +72,23 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
     setLoadingData(false);
   };
 
+  const createNote = async ({ type }: MainContentProps) => {
+    setLoadingData(true);
+    await api
+      .post(
+        `/${type}`,
+        { userId: user._id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .catch(() => openToast({ variant: 'error', message: 'Erro ao criar nova nota.' }));
+
+    getAllDocuments();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -81,6 +99,7 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         loadingData,
         getAllDocuments,
         getDocumentById,
+        createNote,
         notes,
         lists,
         document,
