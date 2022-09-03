@@ -1,5 +1,4 @@
 export interface MainContentProps {
-  type?: 'note' | 'checklist' | null;
-  noteId?: string;
-  checklistId?: string;
+  type?: 'note' | 'list' | null;
+  id?: string;
 }

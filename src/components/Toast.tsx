@@ -27,7 +27,7 @@ const Toast = () => {
         {showToast.variant === 'error' && <WarningCircle className='text-xl ml-4 text-red-500' />}
         {showToast.variant === 'warning' && <Warning className='text-xl ml-4 text-yellow-500' />}
         {showToast.variant === 'success' && <CheckCircle className='text-xl ml-4 text-green-500' />}
-        <p className='p-4 text-left'>
+        <div className='p-4 text-left'>
           {typeof showToast.message === 'string'
             ? showToast.message
             : showToast.message?.map((msg: string, index: number) => (
@@ -40,7 +40,7 @@ const Toast = () => {
                   {msg}
                 </p>
               ))}
-        </p>
+        </div>
       </div>
       <div className={`w-full h-1 rounded animate-decrease ${variantClasses}`} />
     </button>,

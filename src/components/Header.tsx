@@ -6,28 +6,37 @@ import { useApp } from '~/contexts/AppContext';
 
 const Header: React.FC = () => {
   const { logout, user } = useAuth();
-  const { setMainContent, userNotes, setOpenModal } = useApp();
+  const { changeMainContent, changeShowModal, notes, lists } = useApp();
 
   return (
     <header className='h-screen w-48 flex flex-col justify-between bg-zinc-100 border-r shadow-sm'>
       <div className='w-full'>
         <p className='m-4'>{user.name}</p>
-        <Button variant='header' onClick={() => setMainContent({ type: 'note' })}>
+        <Button variant='header' onClick={() => changeMainContent({ type: 'note' })}>
           <Plus /> Adicionar nota
         </Button>
-        {userNotes.map((note) => (
+        {notes.map((note) => (
           <Button
             key={note._id}
             variant='header'
-            onClick={() => setMainContent({ type: 'note', noteId: note.id })}
+            onClick={() => changeMainContent({ type: 'note', id: note._id })}
           >
-            {note.title}
+            {note.title || 'Sem Título'}
           </Button>
         ))}
-        <Button variant='header' onClick={() => setMainContent({ type: 'checklist' })}>
+        <Button variant='header' onClick={() => changeMainContent({ type: 'list' })}>
           <Plus /> Adicionar checklist
         </Button>
-        <Button variant='header' onClick={() => setOpenModal(true)}>
+        {lists.map((list) => (
+          <Button
+            key={list._id}
+            variant='header'
+            onClick={() => changeMainContent({ type: 'list', id: list._id })}
+          >
+            {list.title || 'Sem Título'}
+          </Button>
+        ))}
+        <Button variant='header' onClick={changeShowModal}>
           <Gear /> Configurações
         </Button>
       </div>

@@ -10,16 +10,16 @@ import Button from '~/components/Button';
 
 const Home = () => {
   const { user } = useAuth();
-  const { mainContent, getAllUserNotes } = useApp();
+  const { mainContent, getAllDocuments } = useApp();
 
   useEffect(() => {
-    getAllUserNotes();
+    getAllDocuments();
   }, []);
 
   return (
     <div className='flex'>
       <Header />
-      <MainContent type={mainContent.type} />
+      <MainContent type={mainContent.type} id={mainContent.id} />
       <Modal>
         <form className='flex gap-8'>
           <div className='flex flex-col'>
