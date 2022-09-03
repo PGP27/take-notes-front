@@ -29,7 +29,7 @@ const Login = () => {
         onChange={({ target: { value } }) => (loginRef.current.password = value)}
       />
       <Link className='w-fit mt-4' to='forgot-password' onClick={closeToast}>
-        <p className='w-fit text-sm font-medium text-sky-700 hover:text-sky-800'>
+        <p className='w-fit text-sm font-medium text-green-700 hover:text-green-800'>
           Esqueceu sua senha?
         </p>
       </Link>

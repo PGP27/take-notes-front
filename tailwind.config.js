@@ -7,7 +7,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'modal-overlay': 'rgba(0, 0, 0, 0.25)',
+        'modal-overlay': 'rgba(0, 0, 0, 0.2)',
       },
       keyframes: {
         decrease: {

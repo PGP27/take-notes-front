@@ -7,6 +7,7 @@ const Description: React.FC<DescriptionModel> = ({ variant, children, className,
       return 'mb-4';
     }
   }, [variant]);
+
   return (
     <p {...rest} className={`text-sm text-zinc-600 ${variantClasses} ${className}`}>
       {children}

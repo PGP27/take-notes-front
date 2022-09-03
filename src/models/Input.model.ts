@@ -1,5 +1,5 @@
 interface InputProps {
-  variant?: 'form' | 'header' | 'item' | 'default';
+  variant?: 'form' | 'content' | 'default';
 }
 
 export type InputModel = JSX.IntrinsicElements['input'] & InputProps;

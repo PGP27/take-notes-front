@@ -1,6 +1,6 @@
 import React from 'react';
 import { LogoModel } from '~/models/Logo.model';
-import { NotePencil } from 'phosphor-react';
+import { ClipboardText } from 'phosphor-react';
 
 const Logo: React.FC<LogoModel> = ({ sm, className }) => {
   return (
@@ -25,7 +25,7 @@ const Logo: React.FC<LogoModel> = ({ sm, className }) => {
           Notes
         </p>
       </div>
-      <NotePencil className={`${sm ? 'ml-2 text-xl' : 'ml-4 text-3xl'}`} />
+      <ClipboardText className={`${sm ? 'ml-2 text-xl' : 'ml-4 text-3xl'}`} />
     </div>
   );
 };
