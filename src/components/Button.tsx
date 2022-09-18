@@ -13,7 +13,10 @@ const Button: React.FC<ButtonModel> = ({ variant, className, children, ...rest }
       return 'flex items-center gap-2 p-4 text-black text-xs rounded-none hover:bg-zinc-200';
     }
     if (variant === 'close') {
-      return 'w-fit rounded-full p-2 hover:bg-zinc-100 hover:text-red-600';
+      return 'w-fit rounded-full p-2 ml-2 hover:bg-zinc-100 hover:text-red-600';
+    }
+    if (variant === 'delete') {
+      return 'w-fit rounded p-2 bg-red-500 text-white text-sm font-medium text hover:bg-red-600';
     }
   }, [variant]);
 

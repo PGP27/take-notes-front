@@ -7,11 +7,13 @@ export interface AppContextProps {
   mainContent: MainContentProps;
   changeMainContent({ type, id }: MainContentProps): void;
   loadingData: boolean;
-  showModal: boolean;
-  changeShowModal(): void;
+  showModal: { name?: string; open: boolean };
+  changeShowModal(name: string): void;
   getAllDocuments(): void;
   getDocumentById({ type, id }: MainContentProps): void;
-  createNote({ type }: MainContentProps): void;
+  createDocument({ type }: MainContentProps): void;
+  changeDocument(document: DocumentModel): void;
+  updateNote({ title, text, id }: { title?: string; text?: string; id?: string }): void;
   notes: NoteModel[];
   lists: ListModel[];
   document: DocumentModel | undefined;

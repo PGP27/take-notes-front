@@ -22,7 +22,7 @@ const Item: React.FC = () => {
         variant='content'
         maxLength={50}
       />
-      <Button variant='close' className='ml-2'>
+      <Button variant='close'>
         <Trash />
       </Button>
     </div>

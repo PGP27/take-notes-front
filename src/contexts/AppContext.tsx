@@ -14,15 +14,31 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   const { user, token, openToast } = useAuth();
 
   const [loadingData, setLoadingData] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<{ name?: string; open: boolean }>({ open: false });
   const [mainContent, setMainContent] = useState<MainContentProps>({ type: null });
   const [notes, setNotes] = useState<NoteModel[]>([]);
   const [lists, setLists] = useState<ListModel[]>([]);
   const [document, setDocument] = useState<DocumentModel>();
 
-  const changeShowModal = () => setShowModal((old) => !old);
+  const changeShowModal = (name: string) => {
+    setShowModal((old) => {
+      if (old.name && old.name === name) {
+        return {
+          ...old,
+          open: !old.open,
+        };
+      }
+      return {
+        name,
+        open: true,
+      };
+    });
+  };
 
   const changeMainContent = ({ type, id }: MainContentProps) => setMainContent({ type, id });
+
+  const changeDocument = (newDocument: DocumentModel) =>
+    setDocument((old) => ({ ...old, ...newDocument }));
 
   const getAllDocuments = async () => {
     setLoadingData(true);
@@ -63,7 +79,14 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => setDocument(res.data))
+        .then((res) => {
+          const { title, text } = res.data;
+          setDocument({
+            ...res.data,
+            title: title || '',
+            text: text || '',
+          });
+        })
         .catch(() =>
           openToast({ variant: 'error', message: 'Erro ao buscar documentos do usuário.' }),
         );
@@ -72,7 +95,7 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
     setLoadingData(false);
   };
 
-  const createNote = async ({ type }: MainContentProps) => {
+  const createDocument = async ({ type }: MainContentProps) => {
     setLoadingData(true);
     await api
       .post(
@@ -89,6 +112,31 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
     getAllDocuments();
   };
 
+  const updateNote = async ({
+    title,
+    text,
+    id,
+  }: {
+    title?: string;
+    text?: string;
+    id?: string;
+  }) => {
+    setLoadingData(true);
+    await api
+      .patch(
+        `/note/${id}`,
+        { title, text },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .catch(() => openToast({ variant: 'error', message: 'Erro ao atualizar nota.' }));
+
+    getAllDocuments();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -99,7 +147,9 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         loadingData,
         getAllDocuments,
         getDocumentById,
-        createNote,
+        createDocument,
+        changeDocument,
+        updateNote,
         notes,
         lists,
         document,

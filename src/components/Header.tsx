@@ -6,17 +6,16 @@ import { useApp } from '~/contexts/AppContext';
 
 const Header: React.FC = () => {
   const { logout, user } = useAuth();
-  const { changeMainContent, changeShowModal, createNote, notes, lists } = useApp();
+  const { changeMainContent, changeShowModal, createDocument, notes, lists } = useApp();
 
   return (
-    <header className='h-screen w-48 flex flex-col justify-between bg-zinc-100 border-r shadow-sm'>
+    <header className='h-screen w-60 flex flex-col justify-between bg-zinc-100 border-r shadow-sm'>
       <div className='w-full'>
         <p className='m-4'>{user.name}</p>
         <Button
           variant='header'
           onClick={() => {
-            changeMainContent({ type: 'note' });
-            createNote({ type: 'note' });
+            createDocument({ type: 'note' });
           }}
         >
           <Plus /> Adicionar nota
@@ -30,11 +29,13 @@ const Header: React.FC = () => {
             {note.title || 'Sem Título'}
           </Button>
         ))}
+        <div className='px-4 my-4'>
+          <div className='w-full h-[1px] rounded-full bg-black' />
+        </div>
         <Button
           variant='header'
           onClick={() => {
-            changeMainContent({ type: 'list' });
-            createNote({ type: 'list' });
+            createDocument({ type: 'list' });
           }}
         >
           <Plus /> Adicionar checklist
@@ -48,7 +49,10 @@ const Header: React.FC = () => {
             {list.title || 'Sem Título'}
           </Button>
         ))}
-        <Button variant='header' onClick={changeShowModal}>
+        <div className='px-4 my-4'>
+          <div className='w-full h-[1px] rounded-full bg-black' />
+        </div>
+        <Button variant='header' onClick={() => changeShowModal('config')}>
           <Gear /> Configurações
         </Button>
       </div>
