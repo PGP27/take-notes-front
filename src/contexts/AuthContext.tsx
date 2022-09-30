@@ -15,6 +15,12 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [user, setUser] = useState<User>(JSON.parse(localStorage.getItem('user') || '{}'));
 
+  const changeUser = (user: User) =>
+    setUser((old) => ({
+      ...old,
+      ...user,
+    }));
+
   const openToast = ({ variant, message }: ToastModel) => setShowToast({ variant, message });
 
   const closeToast = () => setShowToast({ message: '' });
@@ -59,6 +65,7 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         login,
         logout,
         user,
+        changeUser,
         createAccount,
       }}
     >

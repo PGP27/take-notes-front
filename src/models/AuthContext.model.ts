@@ -12,5 +12,6 @@ export interface AuthContextProps {
   login({ username, password }: LoginModel): Promise<void>;
   logout(): void;
   user: User;
+  changeUser(user: User): void;
   createAccount({ name, email, username, password }: CreateAccountModel): void;
 }

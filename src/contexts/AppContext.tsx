@@ -5,13 +5,14 @@ import { HaveChildrenProps } from '~/models/HaveChildren.model';
 import { ListModel } from '~/models/List.model';
 import { MainContentProps } from '~/models/MainContent.model';
 import { NoteModel } from '~/models/Note.model';
+import { UpdateAccountModel } from '~/models/UpdateAccount.model';
 import { api } from '~/services/index.service';
 import { useAuth } from './AuthContext';
 
 const AppContext = createContext({} as AppContextProps);
 
 const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
-  const { user, token, openToast } = useAuth();
+  const { user, token, openToast, changeUser } = useAuth();
 
   const [loadingData, setLoadingData] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<{ name?: string; open: boolean }>({ open: false });
@@ -39,6 +40,36 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
 
   const changeDocument = (newDocument: DocumentModel) =>
     setDocument((old) => ({ ...old, ...newDocument }));
+
+  const updateAccount = async (
+    { name, email, username, oldPassword, password }: UpdateAccountModel,
+    id: string,
+  ) => {
+    setLoadingData(true);
+    await api
+      .patch(
+        `/user/${id}`,
+        {
+          name,
+          email,
+          username,
+          oldPassword: oldPassword === '' ? undefined : oldPassword,
+          password: password === '' ? undefined : password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then(() => {
+        changeUser({ name, email, username });
+        changeShowModal('config');
+        openToast({ variant: 'success', message: 'Conta atualizada com sucesso!' });
+      })
+      .catch((err) => openToast({ variant: 'warning', message: err.response.data.message }))
+      .finally(() => setLoadingData(false));
+  };
 
   const getAllDocuments = async () => {
     setLoadingData(true);
@@ -137,6 +168,22 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
     getAllDocuments();
   };
 
+  const deleteDocument = async ({ type, id }: MainContentProps) => {
+    setLoadingData(true);
+
+    await api
+      .delete(`/${type}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => openToast({ variant: 'success', message: 'Documento excluído com sucesso!' }))
+      .catch(() => openToast({ variant: 'error', message: 'Erro ao excluir documento.' }));
+
+    changeShowModal('deleteDoc');
+    getAllDocuments();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -145,11 +192,13 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         showModal,
         changeShowModal,
         loadingData,
+        updateAccount,
         getAllDocuments,
         getDocumentById,
         createDocument,
         changeDocument,
         updateNote,
+        deleteDocument,
         notes,
         lists,
         document,
