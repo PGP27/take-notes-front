@@ -15,7 +15,7 @@ const AuthProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [user, setUser] = useState<User>(JSON.parse(localStorage.getItem('user') || '{}'));
 
-  const changeUser = (user: User) =>
+  const changeUser = (user: { name?: string; email?: string; username?: string }) =>
     setUser((old) => ({
       ...old,
       ...user,

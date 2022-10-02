@@ -181,6 +181,7 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
       .catch(() => openToast({ variant: 'error', message: 'Erro ao excluir documento.' }));
 
     changeShowModal('deleteDoc');
+    changeMainContent({ type: null });
     getAllDocuments();
   };
 
