@@ -1,4 +1,4 @@
 export interface MainContentProps {
-  type?: 'note' | 'list' | null;
+  type?: 'note' | null;
   id?: string;
 }

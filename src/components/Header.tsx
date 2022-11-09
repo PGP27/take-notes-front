@@ -6,7 +6,7 @@ import { useApp } from '~/contexts/AppContext';
 
 const Header: React.FC = () => {
   const { logout, user } = useAuth();
-  const { changeMainContent, changeShowModal, createDocument, notes, lists } = useApp();
+  const { changeMainContent, changeShowModal, createDocument, notes } = useApp();
 
   return (
     <header className='h-screen w-60 flex flex-col justify-between bg-zinc-100 border-r shadow-sm'>
@@ -27,26 +27,6 @@ const Header: React.FC = () => {
             onClick={() => changeMainContent({ type: 'note', id: note._id })}
           >
             {note.title || 'Sem Título'}
-          </Button>
-        ))}
-        <div className='px-4 my-4'>
-          <div className='w-full h-[1px] rounded-full bg-black' />
-        </div>
-        <Button
-          variant='header'
-          onClick={() => {
-            createDocument({ type: 'list' });
-          }}
-        >
-          <Plus /> Adicionar checklist
-        </Button>
-        {lists.map((list) => (
-          <Button
-            key={list._id}
-            variant='header'
-            onClick={() => changeMainContent({ type: 'list', id: list._id })}
-          >
-            {list.title || 'Sem Título'}
           </Button>
         ))}
         <div className='px-4 my-4'>

@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState } from 'react';
 import { AppContextProps } from '~/models/AppContext.model';
 import { DocumentModel } from '~/models/Document.model';
 import { HaveChildrenProps } from '~/models/HaveChildren.model';
-import { ListModel } from '~/models/List.model';
 import { MainContentProps } from '~/models/MainContent.model';
 import { NoteModel } from '~/models/Note.model';
 import { UpdateAccountModel } from '~/models/UpdateAccount.model';
@@ -18,7 +17,6 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
   const [showModal, setShowModal] = useState<{ name?: string; open: boolean }>({ open: false });
   const [mainContent, setMainContent] = useState<MainContentProps>({ type: null });
   const [notes, setNotes] = useState<NoteModel[]>([]);
-  const [lists, setLists] = useState<ListModel[]>([]);
   const [document, setDocument] = useState<DocumentModel>();
 
   const changeShowModal = (name: string) => {
@@ -80,17 +78,6 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         },
       })
       .then((res) => setNotes(res.data))
-      .catch(() =>
-        openToast({ variant: 'error', message: 'Erro ao buscar documentos do usuário.' }),
-      );
-
-    await api
-      .get('/list', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setLists(res.data))
       .catch(() =>
         openToast({ variant: 'error', message: 'Erro ao buscar documentos do usuário.' }),
       );
@@ -201,7 +188,6 @@ const AppProvider: React.FC<HaveChildrenProps> = ({ children }) => {
         updateNote,
         deleteDocument,
         notes,
-        lists,
         document,
       }}
     >

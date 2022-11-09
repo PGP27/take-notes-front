@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useApp } from '~/contexts/AppContext';
 import Input from './Input';
-import Item from './Item';
 import Button from './Button';
 import { MainContentProps } from '~/models/MainContent.model';
 
@@ -57,21 +56,6 @@ const MainContent: React.FC<MainContentProps> = ({ type, id }) => {
             }
           }}
         />
-      </div>
-    );
-  }
-
-  if (type === 'list') {
-    return (
-      <div className='flex-1 flex flex-col p-4'>
-        <Input
-          className='mb-4'
-          placeholder='Título'
-          variant='content'
-          maxLength={20}
-          defaultValue={document?.title}
-        />
-        <Item />
       </div>
     );
   }
